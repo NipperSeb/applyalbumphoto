@@ -1,28 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import App from './app'
+import { BrowserRouter as Router } from 'react-router-dom'
 import './style/GlobalStyles.scss'
-import Home from './pages/Home'
-import Loadphoto from './pages/Loadphoto'
-import Header from './components/Header'
-import Error from './components/Error'
+
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/Loadphoto">
-          <Loadphoto />
-        </Route>
-        <Route>
-          <Error />
-        </Route>
-      </Switch>
+      <App />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
