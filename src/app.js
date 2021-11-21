@@ -1,25 +1,27 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
-import Home from './pages/Home'
-import Loadphoto from './pages/Loadphoto'
-import Header from './components/Navbar'
-import Error from './components/Error'
+import { Home, Loadphoto } from './pages'
+import { Error, Navbar, Loading } from './components'
+import ProtectedRoute from './auth/protected-route'
 
 const App = () => {
+  const { isLoading } = useAuth0()
+
+  if (isLoading) {
+    return <Loading />
+  }
+
   return (
     <div id="app">
-      <Header />
+      <Navbar />
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/Loadphoto">
-          <Loadphoto />
-        </Route>
-        <Route>
-          <Error />
-        </Route>
+        <Route exact path="/" component={Home} />
+
+        <ProtectedRoute path="/Loadphoto" component={Loadphoto} />
+
+        <Route path="/Error" component={Error} />
       </Switch>
     </div>
   )

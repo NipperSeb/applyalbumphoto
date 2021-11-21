@@ -1,0 +1,49 @@
+nav {
+  background: #222;
+  padding: 0 15px;
+}
+
+.link,
+.logo {
+  color: white;
+  text-decoration: none;
+  padding: 0.5em 0.75em 0.5em 0;
+}
+.menu {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 2em;
+  font-family: 'Tangerine', cursive;
+}
+
+.toggle {
+  order: 1;
+}
+
+.item {
+  order: 2;
+  width: 100%;
+  text-align: center;
+  padding: 0.5em 0.75em 0.5em 0;
+}
+
+.btn {
+  color: red;
+  width: 40%;
+}
+
+@media all and (min-width: 656px) {
+  .toggle {
+    display: none;
+  }
+  .menu {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+}
