@@ -4,7 +4,8 @@ nav {
 }
 
 .link,
-.logo {
+.logo,
+.toggle {
   color: white;
   text-decoration: none;
   padding: 0.5em 0.75em 0.5em 0;
@@ -31,11 +32,19 @@ nav {
   width: 100%;
   text-align: center;
   padding: 0.5em 0.75em 0.5em 0;
+  display: none;
+  &.active {
+    display: block;
+  }
 }
 
 .btn {
   color: red;
-  width: 40%;
+  width: 45%;
+  overflow: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media all and (min-width: 656px) {
@@ -45,5 +54,8 @@ nav {
   .menu {
     display: flex;
     flex-wrap: nowrap;
+  }
+  .item {
+    display: inline-block;
   }
 }

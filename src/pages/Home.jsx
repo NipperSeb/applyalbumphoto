@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Ring from '../assets/groom-putting-ring-on-bride-s-finger-ConvertImage.jpg'
 import Heart from '../assets/heart-string.jpg'
 import '../style/Home.scss'

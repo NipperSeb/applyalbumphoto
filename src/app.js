@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 
-import { Home, Loadphoto } from './pages'
+import { Loadphoto } from './pages'
 import { Error, Navbar, Loading } from './components'
 import ProtectedRoute from './auth/protected-route'
+
+const Home = lazy(() => import('./pages/Home'))
 
 const App = () => {
   const { isLoading } = useAuth0()
@@ -16,13 +18,15 @@ const App = () => {
   return (
     <div id="app">
       <Navbar />
-      <Switch>
-        <Route exact path="/" component={Home} />
+      <Suspense fallback={<div>Chargement...</div>}>
+        <Switch>
+          <Route exact path="/" component={Home} />
 
-        <ProtectedRoute path="/Loadphoto" component={Loadphoto} />
+          <ProtectedRoute path="/Loadphoto" component={Loadphoto} />
 
-        <Route path="/Error" component={Error} />
-      </Switch>
+          <Route path="/Error" component={Error} />
+        </Switch>
+      </Suspense>
     </div>
   )
 }
