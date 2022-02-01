@@ -1,22 +1,27 @@
 import React from 'react'
-
+import FormPhoto from '../components/Form-photo'
+import Gallery from '../components/Gallery'
+import '../style/LoadPhoto.scss'
 import { useAuth0 } from '@auth0/auth0-react'
 
 const Loadphoto = () => {
   const { user } = useAuth0()
-  const { name, picture, email } = user
+  const { name, email } = user
 
   return (
-    <div>
-      <div className="Loadphoto--header">
-        <div className="col-md-2 mb-3">
-          <img src={picture} alt="Profile" className="Loadphoto--img" />
+    <div className="loadphoto__container">
+      <section className="loadphoto__header">
+        <div className="loadphoto__text">
+          <h2>{name.toLowerCase()}</h2>
+          <p className="loadphoto__mail">{email}</p>
         </div>
-        <div className="Loadphoto--text">
-          <h2>{name}</h2>
-          <p className="lead text-muted">{email}</p>
-        </div>
-      </div>
+      </section>
+      <section className="formphoto__container">
+        <FormPhoto />
+      </section>
+      <section className="formPhoto__gallery">
+        <Gallery />
+      </section>
     </div>
   )
 }

@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');
-
 @media (max-width: 656px) {
   .Home section {
     flex: 100%;
+    font-size: clamp(1em, 4vw, 5rem);
   }
 }
 

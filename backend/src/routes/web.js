@@ -3,13 +3,10 @@ const router = express.Router()
 const homeController = require('../controllers/home')
 const uploadController = require('../controllers/upload')
 const upload = require('../middleware/upload')
+const fetchImagesController = require('../controllers/fetchImages')
 
-let routes = (app) => {
-  router.get('/', homeController.getHome)
+router.get('/', homeController.getHome)
+router.get('/upload', fetchImagesController.fetchImages)
+router.post('/upload', upload.single('images'), uploadController.uploadFiles)
 
-  router.post('/upload', upload.single('file'), uploadController.uploadFiles)
-
-  return app.use('/', router)
-}
-
-module.exports = routes
+module.exports = router

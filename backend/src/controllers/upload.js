@@ -8,8 +8,11 @@ const uploadFiles = async (req, res) => {
     if (req.file == undefined) {
       return res.send(`You must select a file.`)
     }
+    if (req.file.length > 1) {
+      return res.send('You must select just one file no more!')
+    }
 
-    Image.create({
+    await Image.create({
       type: req.file.mimetype,
       name: req.file.originalname,
       data: req.file.filename,
