@@ -6,11 +6,17 @@ const cors = require('cors')
 
 global.__basedir = __dirname
 
-app.use(cors())
+let corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+}
 
+app.use(cors(corsOptions))
+//send images frontend
+app.use(express.static('resources'))
+// parse requests of content-type - application/json
 app.use(express.json())
 
-app.use(express.urlencoded({ extended: true }))
 app.use(initRoutes)
 
 //db.sequelize.sync()

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormPhoto from '../components/Form-photo'
 import Gallery from '../components/Gallery'
 import '../style/LoadPhoto.scss'
@@ -7,6 +7,8 @@ import { useAuth0 } from '@auth0/auth0-react'
 const Loadphoto = () => {
   const { user } = useAuth0()
   const { name, email } = user
+
+  const [images, setImages] = useState([])
 
   return (
     <div className="loadphoto__container">
@@ -20,7 +22,7 @@ const Loadphoto = () => {
         <FormPhoto />
       </section>
       <section className="formPhoto__gallery">
-        <Gallery />
+        <Gallery images={images} setImages={setImages} />
       </section>
     </div>
   )

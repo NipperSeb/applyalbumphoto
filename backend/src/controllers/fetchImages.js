@@ -1,14 +1,18 @@
 const db = require('../models')
 const Images = db.images
 
-const fetchImages = async (req, res) => {
-  await Images.findAll({
-    attributes: ['data'],
-  }).then(function (list) {
-    res.status(200).json(list)
-  })
+const fetchImages = (req, res) => {
+  Images.findAll({ attributes: ['data'] })
+    .then((data) => {
+      res.json(data)
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || 'Some error occurred while retrieving tutorials.',
+      })
+    })
 }
-
 module.exports = {
   fetchImages,
 }
