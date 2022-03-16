@@ -17,6 +17,11 @@
   min-width: 260px;
   margin: auto;
 }
+.formphoto__gallery {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
 h2 {
   text-transform: capitalize;
@@ -42,4 +47,29 @@ button {
 .photo {
   height: 400px;
   width: auto;
+}
+
+.btn-click {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #232b23;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.btn-click:hover {
+  background-color: #283128;
+}
+
+.btn-click:active {
+  background-color: #282b28;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }

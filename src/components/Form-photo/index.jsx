@@ -2,7 +2,16 @@ import React from 'react'
 import Dropzone from 'react-dropzone-uploader'
 import 'react-dropzone-uploader/dist/styles.css'
 
-function FormPhoto() {
+function FormPhoto({ fetchImage }) {
+  const toast = (innerHTML) => {
+    const el = document.getElementById('toast')
+    el.innerHTML = innerHTML
+    el.className = 'show'
+    setTimeout(() => {
+      el.className = el.className.replace('show', '')
+    }, 3000)
+  }
+
   const getUploadParams = ({ file }) => {
     const body = new FormData()
     body.append('images', file)
@@ -12,20 +21,27 @@ function FormPhoto() {
     }
   }
 
-  const handleSubmit = (files, allFiles) => {
-    allFiles.forEach((f) => f.remove())
+  const handleChangeStatus = ({ meta, remove }, status) => {
+    if (status === 'headers_received') {
+      remove()
+    } else if (status === 'aborted') {
+      toast(`${meta.name}, le téléchargement a échoué...`)
+    }
+    fetchImage()
   }
 
   return (
     <div>
+      <div id="toast"></div>
       <Dropzone
         getUploadParams={getUploadParams}
-        onSubmit={handleSubmit}
+        onChangeStatus={handleChangeStatus}
+        inputContent="Click pour importer ta photo"
         accept="image/*"
         maxFiles={1}
         multiple={false}
         styles={{
-          dropzone: { minHeight: 200, maxHeight: 250 },
+          dropzone: { minHeight: 100, maxHeight: 150 },
         }}
       />
     </div>
