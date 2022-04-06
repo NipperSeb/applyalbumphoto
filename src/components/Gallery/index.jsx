@@ -1,18 +1,11 @@
 import React from 'react'
+import PhotoElement from '../Photo-element'
 
 const Gallery = ({ images }) => {
   return (
-    <div>
-      {images
-        .map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt="image mariage sebastien pincepoche et maryse guimard"
-            className="photo"
-          />
-        ))
-        .reverse()}
+    <div className="gallery__list">
+      {images &&
+        images.map((image) => <PhotoElement key={image.id} {...image} />)}
     </div>
   )
 }
