@@ -1,56 +1,48 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useReducer,
+} from 'react'
 import FormPhoto from '../components/Form-photo'
 import Gallery from '../components/Gallery'
 import '../style/LoadPhoto.scss'
 import { useAuth0 } from '@auth0/auth0-react'
+import { getPictures } from '../services/endpoint'
 
 const Loadphoto = () => {
   const { user } = useAuth0()
   const { name, email } = user
 
   const [images, setImages] = useState([])
-  const [isFetching, setIsFetching] = useState(false)
-  //setting the initial page
   const [page, setPage] = useState(0)
-  const [hasMore, setHasMore] = useState(true)
 
-  //on initial mount
-  // Ce hook indique a react que notre composant doit exécuter qqchose après chaque affichage et permet le telechargement des photos a l'ouverture
-  useEffect(() => {
-    fetchImage()
-  }, []) //le tab dependance evite une boucle infinie telechargement images
-
-  const fetchImage = async () => {
-    setIsFetching(true)
-    try {
-      const response = await fetch(
-        `http://localhost:8000/upload?page=${page}&size=12`,
-        {
-          credentials: 'include',
-        }
-      )
-      const data = await response.json()
-      setImages((images) => [...images, ...data.pictures])
-      console.log(page)
-      setPage((page) => page + 1)
-      setHasMore(data.totalPages !== data.currentPage)
-      setIsFetching(false)
-    } catch (err) {
-      console.log(err)
-    } finally {
-    }
+  // fetch the first page after a new picture
+  function fetchUploads() {
+    setImages([])
+    setPage(0)
+    getPictures(page)
+      .then((data) => {
+        setImages(data.pictures)
+      })
+      .catch(console.error)
   }
 
+  //add loadMore pictures
   useEffect(() => {
-    persistForm()
-  }, [images]) //le tableau permet l'affichage du load more
+    const loadMorePictures = () => {
+      getPictures(page)
+        .then((data) => {
+          setImages((images) => [...images, ...data.pictures])
+        })
+        .catch(console.error)
+    }
+    loadMorePictures()
+  }, [page])
 
-  const persistForm = () => {
-    /*if (isFetching !== true) {
-      setIsFetching('true')
-      console.log(isFetching)
-      setPage(0)*/
-    console.log('camembert')
+  const loadMore = () => {
+    setPage((page) => page + 1)
   }
 
   return (
@@ -62,17 +54,15 @@ const Loadphoto = () => {
         </div>
       </section>
       <section className="formphoto__container">
-        <FormPhoto persistForm={persistForm} />
+        <FormPhoto fetchUploads={fetchUploads} />
       </section>
       <section className="formPhoto__gallery">
         <Gallery images={images} />
       </section>
       <div className="load-more">
-        {!isFetching && hasMore && (
-          <button onClick={fetchImage} className="btn-click">
-            Voir plus...
-          </button>
-        )}
+        <button onClick={loadMore} className="btn-click">
+          Voir plus...
+        </button>
       </div>
     </div>
   )

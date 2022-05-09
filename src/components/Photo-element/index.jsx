@@ -15,7 +15,7 @@ const PhotoElement = ({ id, data, createdAt, name }) => {
           <strong>Créer le:</strong> {createdAt}
         </div>
         <div>
-          <strong>Numéro:</strong> {id}
+          <em>Numéro:</em> {id}
         </div>
       </div>
     </div>

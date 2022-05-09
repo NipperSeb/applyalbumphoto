@@ -2,7 +2,7 @@ import React from 'react'
 import Dropzone from 'react-dropzone-uploader'
 import 'react-dropzone-uploader/dist/styles.css'
 
-function FormPhoto({ persistForm }) {
+function FormPhoto({ fetchUploads }) {
   const toast = (innerHTML) => {
     const el = document.getElementById('toast')
     el.innerHTML = innerHTML
@@ -27,7 +27,7 @@ function FormPhoto({ persistForm }) {
     } else if (status === 'aborted') {
       toast(`${meta.name}, le téléchargement a échoué...`)
     }
-    persistForm()
+    fetchUploads()
   }
 
   return (
