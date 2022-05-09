@@ -3,6 +3,7 @@
     font-size: clamp(1em, 3vw, 5rem);
     gap: 10px;
   }
+
 }
 
 .loadphoto__container {
@@ -17,10 +18,11 @@
   min-width: 260px;
   margin: auto;
 }
-.formphoto__gallery {
-  display: flex;
+
+.gallery__list {
+  display:flex;
+  flex-flow: row wrap;
   justify-content: space-around;
-  align-items: center;
 }
 
 h2 {
@@ -44,9 +46,13 @@ h3 {
 button {
   margin: 1em;
 }
-.photo {
+.photoElement__image {
   height: 400px;
   width: auto;
+}
+
+.photoElement__details {
+   margin-top: -1em
 }
 
 .btn-click {

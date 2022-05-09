@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
     data: {
       type: DataTypes.STRING,
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      get: function () {
+        // or use get(){ }
+        return this.getDataValue('createdAt').toLocaleString('fr-FR')
+      },
+    },
   })
 
   return Image

@@ -1,45 +1,44 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useReducer,
+} from 'react'
 import FormPhoto from '../components/Form-photo'
 import Gallery from '../components/Gallery'
 import '../style/LoadPhoto.scss'
 import { useAuth0 } from '@auth0/auth0-react'
-
-// put the path with the good scheme
-const transformUploads = (items) => {
-  let pictures = []
-  let pathApi = 'http://localhost:8000/static/'
-  for (let i = 0; i < items.length; i++) {
-    pictures.unshift(pathApi + items[i].data)
-  }
-  return pictures
-}
+import { getPictures } from '../services/endpoint'
 
 const Loadphoto = () => {
   const { user } = useAuth0()
   const { name, email } = user
+
   const [images, setImages] = useState([])
   const [page, setPage] = useState(0)
 
-  //useCallback prevent the button load more to perform this code
-  const fetchImage = useCallback(async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:8000/upload?page=${page}&size=12`,
-        {
-          credentials: 'include',
-        }
-      )
-      const data = await response.json()
-      setImages(transformUploads(data.pictures).concat(images))
-    } catch (err) {
-      console.log(err)
-    } finally {
-    }
-  }, [page])
+  // fetch the first page after a new picture
+  function fetchUploads() {
+    setImages([])
+    setPage(0)
+    getPictures(page)
+      .then((data) => {
+        setImages(data.pictures)
+      })
+      .catch(console.error)
+  }
 
-  //Call the API each time the number page change
+  //add loadMore pictures
   useEffect(() => {
-    fetchImage()
+    const loadMorePictures = () => {
+      getPictures(page)
+        .then((data) => {
+          setImages((images) => [...images, ...data.pictures])
+        })
+        .catch(console.error)
+    }
+    loadMorePictures()
   }, [page])
 
   const loadMore = () => {
@@ -55,7 +54,7 @@ const Loadphoto = () => {
         </div>
       </section>
       <section className="formphoto__container">
-        <FormPhoto fetchImage={fetchImage} />
+        <FormPhoto fetchUploads={fetchUploads} />
       </section>
       <section className="formPhoto__gallery">
         <Gallery images={images} />
