@@ -1,17 +1,18 @@
-# Getting Started with Create React App
+#Presentation of l'appliAlbumPhoto
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The application is intended for uploading photos. Inspired by a wedding invitation card, the user can complete a photo album and/or review the journey of the bride and groom through photos.
 
-->Présentation de l'appliAlbumPhoto
-
-L'application est destinée à télécharger des photos. En m'inspirant d'une carte d'invitation de mariage, l'utilisateur peut compléter un album photo et/ou revoir le parcours des mariés à travers des photos.
-
-->Stack technique
+##Stack technique
 node.js
 sequelize
 MySQL
 Hook
 Auth0
 
-->Note personnelle
-C'est réellement ma première app que je réalise d'une façon autonome sans faire du copier/coller à tout bout de champs. Je commence à mieux comprendre l'architecture d'un site, l'utilisation des hooks et des BDD. Je me suis appliqué pour rendre un code propre mais il y a surement encore des choses a améliorer (test, typescript). Donc je vais continuer mon apprentissage...
+It's really my first app that I make independently without "copying and pasting".
+I'm starting to better understand the architecture of a site, the use of hooks and databases. I applied myself to make a clean code but there are surely still things to improve (test, typescript). So I will continue my learning...
+
+
+###Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
